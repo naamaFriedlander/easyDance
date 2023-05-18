@@ -1,14 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Button } from '@mui/material';
-
+ import css from './video.css'
+ import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
+ import VideocamIcon from '@mui/icons-material/Videocam';
+ import RadioButtonCheckedSharpIcon from '@mui/icons-material/RadioButtonCheckedSharp';
+ import StopCircleSharpIcon from '@mui/icons-material/StopCircleSharp';
 function VideoPlayer() {
-  const [videos, setVideos] = useState(['video.mp4', 'video2.mp4', 'video3.mp4']);
+  const [videos, setVideos] = useState(['video.mp4', 'video2.mp4', 'video3.mp4','video3.mp4']);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const videoRef = useRef(null);
   const cameraRef = useRef(null);
   const mediaRecorderRef = useRef(null);
   const [videoBasePath, setVideoBasePath] = useState('http://localhost:3000/');
   const [recordedChunks, setRecordedChunks] = useState([]);
+ 
 
 
   const mimeType = 'video/webm;codecs=h264';
@@ -107,50 +112,57 @@ function VideoPlayer() {
   });
 
   return (
+    <>
     <div>
-      <ul>
+      <div className='videoButtonsDiv' >
         {videos.map((video) => (
-          <li key={video}>
-            <Button onClick={() => handleVideoClick(video)}>{video}</Button>
-          </li>
+            <button onClick={() => handleVideoClick(video)} className='videoButton'>{video}</button>
         ))}
-      </ul>
-      <Button disabled={!selectedVideo} onClick={handlePlayClick}>
-        Play
+      </div>
+      <Button onClick={()=>{}} className='buttons' title='טען עוד' style={{ color:'#E48F9F' }}>
+       טען עוד
       </Button>
-      <Button onClick={handleCameraClick}>Open Camera</Button>
+      <div className='divider'></div>
+      
+  
+
+
+    </div>
+
+    <div style={{ display: 'flex' }}>
+        <div style={{ flex: 1 }}>
+          {/* Video element */}
+          <video ref={videoRef} controls className='videoScreen' />
+        </div>
+        <div style={{ flex: 1 }}>
+          {/* Camera element */}
+          <video ref={cameraRef} className='videoScreen' />
+        </div>
+      </div>
+    <Button disabled={!selectedVideo} onClick={handlePlayClick} className='buttons'>
+       <PlayCircleOutlineIcon style={{ color:'#E48F9F' }}/>
+      </Button>
+      <Button onClick={handleCameraClick} className='buttons'><VideocamIcon style={{ color:'#E48F9F' }}/></Button>
       {/* <Button
         disabled={!selectedVideo || !mediaRecorderRef.current}
         onClick={handleRecordClick}
       >
         Start Recording
       </Button> */}
-      <Button onClick={handleRecordClick}>
+      <Button onClick={handleRecordClick} className='buttons'>
         {/* disabled={!selectedVideo || !mediaRecorderRef.current?.stream} */}
-        Start Recording
+        <RadioButtonCheckedSharpIcon style={{ color:'#E48F9F' }} />
       </Button>
 
-      <Button onClick={handleStopRecordClick}>
+      <Button onClick={handleStopRecordClick} className='buttons'>
         {/* disabled={!selectedVideo || !mediaRecorderRef.current?.stream} */}
-        Stop Recording
+     <StopCircleSharpIcon style={{ color:'#E48F9F' }}/>
       </Button>
       {/* <div style={{ display: 'flex' }}>
         <video ref={videoRef} controls />
         <video ref={cameraRef} width="320" height="240" controls />
       </div> */}
-      <div style={{ display: 'flex' }}>
-        <div style={{ flex: 1 }}>
-          {/* Video element */}
-          <video ref={videoRef} controls style={{ maxWidth: '100%', height: 'auto' }} />
-        </div>
-        <div style={{ flex: 1 }}>
-          {/* Camera element */}
-          <video ref={cameraRef} style={{ maxWidth: '100%', height: '81.10%' }} />
-        </div>
-      </div>
-
-
-    </div>
+    </>
   );
 }
 
