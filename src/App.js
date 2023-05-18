@@ -73,7 +73,7 @@ export default function App() {
         {/* { <Login /> } */}
         {/* { <SignIn /> } */}
         {/* <History/> */}
-        <VideoPlayer />
+        {/* <VideoPlayer /> */}
        {/* <UserHistory></UserHistory> */}
        {/* <ResultsModal/> */}
 
